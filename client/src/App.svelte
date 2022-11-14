@@ -43,13 +43,11 @@
       </div>
     </nav>
   <div class="row">
-    <div class="col-12 d-flex justify-content-center">
-      <Route path="/"><Frontpage /></Route>
-      <Route path="/game"><Game /></Route>
-      <Route path="/stats"><Stats /></Route>
-      <Route path="/login"><Login /></Route>
-      <Route path="/sign-up"><Signup /></Route>
+        <Route path="/"><Frontpage /></Route>
+        <Route path="/game"><Game /></Route>
+        <Route path="/stats"><Stats /></Route>
+        <Route path="/login"><Login /></Route>
+        <Route path="/sign-up"><Signup /></Route>
     </div>
-  </div>
 </Router>
 

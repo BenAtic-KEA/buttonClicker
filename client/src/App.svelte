@@ -2,7 +2,7 @@
   import { Router, Link, Route } from "svelte-navigator";
   import Frontpage from "./components/pages/frontpage/Frontpage.svelte";
   import Game from "./components/pages/buttonGame/Game.svelte";
-  import Stats from "./components/pages/stats/Stats.svelte";
+  import Stats from "./components/pages/leaderboard/Leaderboard.svelte";
   import Login from "./components/pages/login/login.svelte";
   import Signup from "./components/pages/signUp/signup.svelte";
 </script>
@@ -31,7 +31,7 @@
                 <Link to="/game" class="color-changing-15">Game</Link>
               </li>
               <li class="nav-item m-2">
-                <Link to="/stats" class="color-changing-15">Stats</Link>
+                <Link to="/leaderboard" class="color-changing-15">Leaderboard</Link>
               </li>
               <li class="nav-item m-2">
                 <Link to="/login" class="color-changing-15">Login</Link>
@@ -45,7 +45,7 @@
   <div class="row">
         <Route path="/"><Frontpage /></Route>
         <Route path="/game"><Game /></Route>
-        <Route path="/stats"><Stats /></Route>
+        <Route path="/leaderboard"><Stats /></Route>
         <Route path="/login"><Login /></Route>
         <Route path="/sign-up"><Signup /></Route>
     </div>

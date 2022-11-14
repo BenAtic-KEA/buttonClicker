@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt';
 
 const saltRounds = process.env.saltRounds
 
+
+// hvordan skal det gøres?
 export async function isLoggedIn(username, password){
     const user = {
-        username: "",
-        password: ""
+        username: username,
+        password: password,
+        passwordhash: bcrypt.hash(password, saltRounds)
     }
-
-    const result = await db.run(``)
-
 }

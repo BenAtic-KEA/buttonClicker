@@ -1,0 +1,55 @@
+<script>
+  import { Router, Link, Route } from "svelte-navigator";
+  import Frontpage from "./components/pages/frontpage/Frontpage.svelte";
+  import Game from "./components/pages/buttonGame/Game.svelte";
+  import Stats from "./components/pages/stats/Stats.svelte";
+  import Login from "./components/pages/login/login.svelte";
+  import Signup from "./components/pages/signUp/signup.svelte";
+</script>
+
+<Router>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid d-flex justify-content-center">
+          <a class="navbar-brand" href="/">LOGO</a>
+          <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          >
+          <span class="navbar-toggler-icon" />
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+              <li class="nav-item m-2">
+                <Link to="/" class="color-changing-15">Home</Link>
+              </li>
+              <li class="nav-item m-2">
+                <Link to="/game" class="color-changing-15">Game</Link>
+              </li>
+              <li class="nav-item m-2">
+                <Link to="/stats" class="color-changing-15">Stats</Link>
+              </li>
+              <li class="nav-item m-2">
+                <Link to="/login" class="color-changing-15">Login</Link>
+              </li>
+              <li class="nav-item m-2">
+                <Link to="/sign-up" class="color-changing-15">Sign up</Link>
+              </li>
+        </div>
+      </div>
+    </nav>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <Route path="/"><Frontpage /></Route>
+      <Route path="/game"><Game /></Route>
+      <Route path="/stats"><Stats /></Route>
+      <Route path="/login"><Login /></Route>
+      <Route path="/sign-up"><Signup /></Route>
+    </div>
+  </div>
+</Router>
+

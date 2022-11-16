@@ -11,3 +11,10 @@ export async function isLoggedIn(username, password){
         passwordhash: bcrypt.hash(password, saltRounds)
     }
 }
+
+// min 8 letters, atleast 1 symbol, upper and lower case 
+export function passwordValidator(str)
+    {
+        var regex = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return regex.test(str);  
+}   

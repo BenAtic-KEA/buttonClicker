@@ -1,18 +1,3 @@
-import bcrypt from 'bcrypt';
-
-const saltRounds = process.env.saltRounds
-
-
-// hvordan skal det gøres?
-export async function isLoggedIn(username, password){
-    const user = {
-        username: username,
-        password: password,
-        passwordhash: bcrypt.hash(password, saltRounds)
-    }
-}
-
-
 export function usernameValidator(str){
 // start with a letter, and only contain letters and numbers min. length 6
     var regex = /^[a-z]([0-9a-z]){5,}$/

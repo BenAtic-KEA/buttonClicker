@@ -46,8 +46,8 @@ export async function loginOk(req, res, next){
         if(isOk){
             return next();
         }
-        res.status(400).send("Wrong account info")
+        res.status(400).send({data: {message: "Wrong account info"}})
     }else{
-        res.status(400).send("Wrong account info")
+        res.status(400).send({data: {message: "Wrong account info"}})
     }
 }

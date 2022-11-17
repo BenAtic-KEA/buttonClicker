@@ -35,15 +35,19 @@ export async function signupGuard(req, res, next) {
 
 }
 
-export async function loginOk(username, password){
+export async function loginOk(req, res, next){
 
-    const currentUser = usernameOk(username)
+    const username = req.body.username
+    const password = req.body.password
+    const currentUser = await usernameOk(username)
 
-    if(currentUser){
-
-
+    if(currentUser.exists){
+        const isOk = await comparePassword(password, currentUser[0].password)
+        if(isOk){
+            return next();
+        }
+        res.status(400).send("Wrong account info")
+    }else{
+        res.status(400).send("Wrong account info")
     }
-    
-    const passwordOk = await comparePassword(currentUser.password,)
-    
 }

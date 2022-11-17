@@ -17,13 +17,7 @@ export async function userExist(username, email) {
         WHERE email = ?
         `, [email]);
 
-        const result = await db.all(`
-    SELECT * FROM user
-        WHERE username = ?
-        `, [username]);
-        console.log(result)
-
-    if (userResult.count !== 0 || emailResult.count !== 0) {
+    if (userResult.count > 0 || emailResult.count > 0) {
         return true
     } else {
         return false
@@ -35,12 +29,14 @@ export async function usernameOk(username) {
     SELECT * FROM user
         WHERE username = ?
         `, [username]);
-
+        result.exists = false
+    
     if (result) {
-        return true
+        result.exists = true
+        return result
     }
 
-    return false
+    return result
 }
 
 export async function getTop10() {

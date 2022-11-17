@@ -1,15 +1,33 @@
 import  Router  from "express";
 const router = Router();
-import db from "../database/connection_sqlite.js"
+import { saveUser } from "../database/dml_sqlite.js";
 
 const openSessions = {
     sessionkey: []
 }
 
-router.post("/api/sign-up",(req,res) => {
+import { signupGuard } from '../components/middleware/accountMiddleware.js'
 
+router.post("/api/sign-up",signupGuard, async (req,res) => {
+    const username = req.body.username
+    const password = req.body.password
+    const email = req.body.email
+    try {
+        const response = await saveUser(username,password,email)
+        res.send({data:
+            response.changes,
+            user: {
+                username: username,
+                email: email
+            }
+        })
+    } catch (error) {
+        res.status(400).send({data:error})
+    }
 })
 
 router.post("/api/login",(req,res) => {
 
 })
+
+export default router

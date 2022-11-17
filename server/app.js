@@ -33,10 +33,12 @@ const routeLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+import accountRouter from './routers/accountRouter.js'
+app.use(accountRouter);
+
+
 // Security
 function guardMiddleware(req,res,next){
-
-    
 
 }
 

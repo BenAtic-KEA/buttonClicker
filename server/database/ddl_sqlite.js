@@ -1,6 +1,6 @@
 import db from './connection_sqlite.js';
 
-const isInDeleteMode = false;
+const isInDeleteMode = true;
 
 if(isInDeleteMode){
     db.exec(`
@@ -8,16 +8,10 @@ if(isInDeleteMode){
     `)
 }
 
-db.exec(`CREATE TABLE IF NOT EXISTS animals (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username VARCHAR(20),
-    password VARCHAR(100)
-)`)
-
-
-export async function saveUser(username, password){
-    const result = await db.run(` INSERT INTO user (username, password)
-    VALUES (?,?)
-    `,[username,password]);
-    return result
-}
+db.exec(`CREATE TABLE IF NOT EXISTS user (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(20) UNIQUE,
+    password VARCHAR(100),
+    email VARCHAR(65) UNIQUE,
+    click_score INTEGER
+    )`);

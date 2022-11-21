@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config();
 
+
 import express from "express";
 const app = express();
 app.use(express.json());
@@ -8,12 +9,16 @@ app.use(express.json());
 import helmet from "helmet";
 app.use(helmet());
 
+import bodyParser from 'body-parser'
+app.use(bodyParser.json())
+
+
 import session from 'express-session';
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false }
 }));
 
@@ -21,7 +26,7 @@ import path from "path"
 app.use(express.static(path.resolve("../client/dist")));
 
 import cors from "cors";
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 
 import { rateLimit } from 'express-rate-limit';
 

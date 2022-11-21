@@ -1,8 +1,28 @@
 <script>
 
-
+let username
+let email
+let password
+let verifyPassword
+let result
     // fetch post sign-up
+    async function signUp(){
 
+        const res = await fetch('http://localhost:8090/api/sign-up', {
+            method:'POST',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password
+            })
+        })
+        const json = await res.json()
+        result = JSON.stringify(json)
+    }
     
 
 </script>
@@ -25,6 +45,7 @@
                         type="text"
                         class="form-control"
                         id="username"
+                        bind:value={username}
                         placeholder="username"
                     />
                     <small id="usernameHelpInline" class="help-line-color ">
@@ -39,6 +60,7 @@
                         type="text"
                         class="form-control"
                         id="email"
+                        bind:value={email}
                         placeholder="Email"
                     />
                     <small id="emailHelpInline" class="help-line-color ">
@@ -53,6 +75,7 @@
                         type="password"
                         class="form-control"
                         id="password"
+                        bind:value={password}
                         placeholder="Password"
                     />
                     <small id="passwordHelpInline" class="help-line-color ">
@@ -65,12 +88,13 @@
                         type="password"
                         class="form-control"
                         id="verify-password"
+                        bind:value={verifyPassword}
                         placeholder="Verify password"
                     />
                 </div>
                 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary m-2"
+                    <button type="button" on:click={signUp} class="btn btn-primary m-2"
                         >Create account</button>
                 </div>
             </form>

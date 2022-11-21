@@ -12,19 +12,23 @@ export async function signupGuard(req, res, next) {
     const emailValid = emailValidator(email);
     const exists = await userExist(username,email)
 
-    if (!userValid || !passwordValid || !emailValid || !exists) {
+    console.log(exists)
+    console.log(userValid)
+    console.log(emailValid)
+    console.log(passwordValid)
+    if (!userValid || !passwordValid || !emailValid || exists) {
       
-        if (!exists) {
+        if (exists) {
             error.exists = 'account already exists'
         }
       
-        if (!userValid) {
+        if (userValid) {
             error.username = 'Username is not valid'
         }
-        if (!passwordValid) {
+        if (passwordValid) {
             error.password = 'Password is not valid'
         }
-        if (!emailValid) {
+        if (emailValid) {
             error.email = 'Email is not valid'
         }
 
@@ -39,10 +43,9 @@ export async function loginOk(req, res, next){
 
     const username = req.body.username
     const password = req.body.password
-    const currentUser = await usernameOk(username)
-
-    if(currentUser.exists){
-        const isOk = await comparePassword(password, currentUser[0].password)
+    const [currentUser] = await usernameOk(username)
+    if(currentUser){
+        const isOk = await comparePassword(password, currentUser.password)
         if(isOk){
             return next();
         }

@@ -1,6 +1,6 @@
 export function usernameValidator(str){
 // start with a letter, and only contain letters and numbers min. length 6
-    var regex = /^[a-z]([0-9a-z]){5,}$/
+    var regex = /^[a-zA-Z]([0-9a-zA-Z]){5,}$/
     return regex.test(str)
 }
 

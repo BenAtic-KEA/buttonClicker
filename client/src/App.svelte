@@ -5,6 +5,12 @@
     import Leaderboard from "./components/pages/leaderboard/Leaderboard.svelte";
     import Login from "./components/pages/login/login.svelte";
     import Signup from "./components/pages/signUp/signup.svelte";
+
+    let loggedIn = false
+
+    function logout(){
+      loggedIn = !loggedIn
+    }
   </script>
   
   <Router>
@@ -33,20 +39,26 @@
                   <li class="nav-item m-2">
                     <Link to="/leaderboard" class="color-changing-15">Leaderboard</Link>
                   </li>
-                  <li class="nav-item m-2">
-                    <Link to="/login" class="color-changing-15">Login</Link>
-                  </li>
-                  <li class="nav-item m-2">
-                    <Link to="/sign-up" class="color-changing-15">Sign up</Link>
-                  </li>
+                      {#if loggedIn}
+                      <li class="nav-item m-2">
+                        <Link to="/logout" on:click={logout} class="color-changing-15">Logout</Link>  
+                      </li>
+                      {:else}
+                      <li class="nav-item m-2">
+                        <Link to="/login" class="color-changing-15">Login</Link>
+                      </li>
+                      <li class="nav-item m-2">
+                        <Link to="/sign-up" class="color-changing-15">Sign up</Link>
+                      </li>
+                      {/if}
             </div>
           </div>
         </nav>
       <div class="row">
             <Route path="/"><Frontpage /></Route>
-            <Route path="/game"><Game /></Route>
+            <Route path="/game"><Game bind:loggedIn/></Route>
             <Route path="/leaderboard"><Leaderboard /></Route>
-            <Route path="/login"><Login /></Route>
+            <Route path="/login"><Login bind:loggedIn /></Route>
             <Route path="/sign-up"><Signup /></Route>
         </div>
     </Router>

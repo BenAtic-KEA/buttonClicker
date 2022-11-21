@@ -6,6 +6,7 @@ export async function signupGuard(req, res, next) {
     const error = {};
     const username = req.body.username;
     const password = req.body.password;
+    console.log(username)
     const email = req.body.email;
     const userValid = usernameValidator(username);
     const passwordValid = passwordValidator(password);
@@ -18,17 +19,17 @@ export async function signupGuard(req, res, next) {
     console.log(passwordValid)
     if (!userValid || !passwordValid || !emailValid || exists) {
       
-        if (exists) {
+        if (!exists) {
             error.exists = 'account already exists'
         }
       
-        if (userValid) {
+        if (!userValid) {
             error.username = 'Username is not valid'
         }
-        if (passwordValid) {
+        if (!passwordValid) {
             error.password = 'Password is not valid'
         }
-        if (emailValid) {
+        if (!emailValid) {
             error.email = 'Email is not valid'
         }
 

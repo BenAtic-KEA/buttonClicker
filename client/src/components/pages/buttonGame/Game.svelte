@@ -2,7 +2,8 @@
 	import Counter from '../../counter/Counter.svelte';
     import PersonalStats from "./personalStats/PersonalStats.svelte";
     
-
+    export let loggedIn
+    
 
 </script>
 
@@ -11,6 +12,6 @@
 </div>
 
 <div class="row mt-3">
-    <Counter></Counter>
+    <Counter bind:loggedIn></Counter>
 </div>
 

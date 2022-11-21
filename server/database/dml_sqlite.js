@@ -12,13 +12,11 @@ export async function userExist(username, email) {
     SELECT COUNT(*) as count FROM user
         WHERE username = ?
         `, [username]);
-        console.log(userResult)
     const emailResult = await db.all(`
     SELECT COUNT(*) as count FROM user
         WHERE email = ?
         `, [email]);
-        console.log(emailResult)
-    if (userResult.count > 0 || emailResult.count > 0) {
+    if (userResult[0] > 0 || emailResult[0].count > 0) {
         return true
     } else {
         return false

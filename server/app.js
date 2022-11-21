@@ -14,12 +14,13 @@ app.use(bodyParser.json())
 
 
 import session from 'express-session';
-
+const store = new session.MemoryStore();
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: { secure: false },
+    store: store
 }));
 
 import path from "path"
@@ -40,13 +41,6 @@ const routeLimiter = rateLimit({
 
 import accountRouter from './routers/accountRouter.js'
 app.use(accountRouter);
-
-
-// Security
-function guardMiddleware(req,res,next){
-
-}
-
 
 app.get("*", (req,res) => {
     res.send(`<h1>404</h1> <br> <br> <h3> Could not find the page`)

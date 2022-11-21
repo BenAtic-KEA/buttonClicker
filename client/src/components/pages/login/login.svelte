@@ -1,7 +1,54 @@
 <script>
+    import toastr from 'toastr'
 
-
+    toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+    let username;
+    let password;
+    let result;
+    
+    export let loggedIn;
     //TODO fetch post login
+    async function login() {
+        const res = await fetch("http://localhost:8090/" + "api/login", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        })
+
+        if(res.ok){
+            loggedIn = !loggedIn
+            const json = await res.json();
+            result = JSON.stringify(json.data.message);
+
+            Command: toastr["success"](result)
+        }else {
+            const json = await res.json();
+            result = JSON.stringify(json.data.message);
+            Command: toastr["warning"](result)
+        }
+    }
 </script>
 
 <div class="col">
@@ -22,6 +69,7 @@
                         type="text"
                         class="form-control"
                         id="username"
+                        bind:value={username}
                         placeholder="username"
                     />
                 </div>
@@ -33,15 +81,15 @@
                         type="password"
                         class="form-control"
                         id="password"
+                        bind:value={password}
                         placeholder="Password"
                     />
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary m-2"
-                        >Login</button
-                    >
-                    <button type="submit" class="btn btn-primary m-2"
-                        >Forgot password</button
+                    <button
+                        type="button"
+                        on:click={login}
+                        class="btn btn-primary m-2">Login</button
                     >
                 </div>
             </form>

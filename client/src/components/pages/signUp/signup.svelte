@@ -1,4 +1,22 @@
 <script>
+import toastr from 'toastr';
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 let username
 let email
@@ -20,8 +38,27 @@ let result
                 password
             })
         })
-        const json = await res.json()
-        result = JSON.stringify(json)
+        if(res.ok){
+            const json = await res.json()
+            result = JSON.stringify(json)
+            Command: toastr["success"](result)
+        }else {
+            const json = await res.json()
+            let existsError = JSON.stringify(json.error.exists)
+            let usernameError = JSON.stringify(json.error.username)
+            let passwordError = JSON.stringify(json.error.password)
+            let emailError = JSON.stringify(json.error.email)
+            console.log(existsError)
+            Command: toastr["warning"](`
+            ${existsError}
+            \n
+            ${usernameError}
+            \n
+            ${passwordError}
+            \n
+            ${emailError}
+            `)
+        }
     }
     
 

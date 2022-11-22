@@ -28,7 +28,7 @@ router.post("/api/login", loginOk, (req,res) => {
     const {username} = req.body
 
     if(req.session.authenticated){
-        res.cookie("loggedIn",true);
+        console.log(req.session.user)
         res.send({data: {message: "logged in!"}});
     }else{
         console.log("TEST")

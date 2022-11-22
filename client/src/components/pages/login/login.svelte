@@ -1,5 +1,8 @@
 <script>
+    import { useNavigate } from 'svelte-navigator';
     import toastr from 'toastr'
+
+    const navigate = useNavigate();
 
     toastr.options = {
   "closeButton": false,
@@ -38,11 +41,14 @@
         })
 
         if(res.ok){
-            loggedIn = !loggedIn
+            if(!loggedIn){
+                loggedIn = !loggedIn
+            }
             const json = await res.json();
             result = JSON.stringify(json.data.message);
 
-            Command: toastr["success"](result)
+            Command: toastr["success"](result);
+            navigate("/game");
         }else {
             const json = await res.json();
             result = JSON.stringify(json.data.message);

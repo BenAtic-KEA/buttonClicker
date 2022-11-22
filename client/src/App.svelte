@@ -5,12 +5,26 @@
     import Leaderboard from "./components/pages/leaderboard/Leaderboard.svelte";
     import Login from "./components/pages/login/login.svelte";
     import Signup from "./components/pages/signUp/signup.svelte";
+    import { onMount } from "svelte"
 
     let loggedIn = false
 
     function logout(){
       loggedIn = !loggedIn
     }
+function getSession(){
+       return fetch("http://localhost:8090/api/currentUser")
+        .then(res => res.json())
+  }
+
+    onMount(async ()=> {
+      const result = await getSession();
+      if(result.isAuthenticated){
+        loggedIn = true
+      }
+    })
+  
+    
   </script>
   
   <Router>

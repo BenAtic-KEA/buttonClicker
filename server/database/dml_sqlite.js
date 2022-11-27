@@ -16,7 +16,7 @@ export async function userExist(username, email) {
     SELECT COUNT(*) as count FROM user
         WHERE email = ?
         `, [email]);
-    if (userResult[0] > 0 || emailResult[0].count > 0) {
+    if (userResult[0].count > 0 || emailResult[0].count > 0) {
         return true
     } else {
         return false

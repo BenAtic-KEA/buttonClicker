@@ -2,7 +2,8 @@ import  Router  from "express";
 const router = Router();
 import { saveUser } from "../database/dml_sqlite.js";
 import { loginOk, signupGuard } from '../components/middleware/accountMiddleware.js'
-import { encryptPassword } from '../components/password.js/password.js'
+import { encryptPassword } from '../components/password/password.js'
+import { sendAutoMail } from '../components/nodemailer/nodemailer.js'
 
 router.post("/api/sign-up",signupGuard, async (req,res) => {
     const username = req.body.username
@@ -10,11 +11,15 @@ router.post("/api/sign-up",signupGuard, async (req,res) => {
     const email = req.body.email
     try {
         const response = await saveUser(username,password,email)
+        let mailText = `Sign up is complete \n You you should now be able to login with you account`
+        const mailSent = await sendAutoMail({email:email, name:username, subject:"Account Creation", text:mailText})
+
         res.send({data: {
             changes: response.changes,
             user: {
                 username: username,
-                email: email
+                email: email,
+                message: mailSent
             }
         }
         })

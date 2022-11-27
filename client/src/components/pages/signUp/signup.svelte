@@ -44,19 +44,26 @@ let result
             Command: toastr["success"](result)
         }else {
             const json = await res.json()
+            let errorText = ''
             let existsError = JSON.stringify(json.error.exists)
             let usernameError = JSON.stringify(json.error.username)
             let passwordError = JSON.stringify(json.error.password)
             let emailError = JSON.stringify(json.error.email)
             console.log(existsError)
+            if(existsError){
+                errorText += existsError + '\n'
+            }
+            if(usernameError){
+                errorText += usernameError + '\n'
+            }
+            if(passwordError){
+                errorText += passwordError + '\n'
+            }
+            if (emailError){
+                errorText += emailError + '\n'
+            }
             Command: toastr["warning"](`
-            ${existsError}
-            \n
-            ${usernameError}
-            \n
-            ${passwordError}
-            \n
-            ${emailError}
+                ${errorText}
             `)
         }
     }

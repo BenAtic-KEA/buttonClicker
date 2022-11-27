@@ -1,6 +1,6 @@
 import { usernameValidator, passwordValidator, emailValidator } from '../../components/accountValidator/accountValidator.js'
 import { userExist, usernameOk } from '../../database/dml_sqlite.js'
-import { comparePassword } from '../password.js/password.js';
+import { comparePassword } from '../password/password.js';
 
 export async function signupGuard(req, res, next) {
     const error = {};
@@ -19,7 +19,7 @@ export async function signupGuard(req, res, next) {
     console.log(passwordValid)
     if (!userValid || !passwordValid || !emailValid || exists) {
       
-        if (!exists) {
+        if (exists) {
             error.exists = 'account already exists'
         }
       

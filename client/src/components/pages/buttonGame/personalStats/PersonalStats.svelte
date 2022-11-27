@@ -1,8 +1,9 @@
 <script>
 import { personalCount, resetCount } from '../../../../store/stores.js'
+import toastr from 'toastr';
 
 let personalCountValue;
-let totalClicks;
+let totalClicks = 0;
     personalCount.subscribe(value => {
         personalCountValue = value;
     });
@@ -11,20 +12,50 @@ let totalClicks;
 
 // Fetch get stored clicks
 async function getTotalClicks(){
-    //totalClicks = await fetch()
-    totalClicks = 20
+    const countRes = await fetch('http://localhost:8090/api/getTotalClicks')
+        if(countRes.ok){
+            const countResult = await countRes.json()
+            let totalCount = countResult.data.totalCount
+            totalClicks = totalCount
+        } else {
+            totalClicks = totalClicks
+        }
     return totalClicks
 }
 
 getTotalClicks();
 //Fetch post personal count clicks
 async function saveClicks(){
-    let countToSave = personalCountValue
+    let clicks = personalCountValue
     //const response = fetch()
-    totalClicks = totalClicks + personalCountValue;
-    personalCount.set(0);
-    resetCount.set(true);
-    return console.log(`All ${countToSave} clicks is saved to your total score!`)
+    const res = await fetch('http://localhost:8090/api/saveClicks', {
+            method:'POST',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                clicks
+            })
+        })
+        if(res.ok){
+            const result = await res.json()
+            Command: toastr["success"](result.data.message)
+            personalCount.set(0);
+            resetCount.set(true);
+        } else {
+            const json = await res.json()
+            Command: toastr["warning"](`
+                ${json.data.message}`)
+        }
+        const countRes = await fetch('http://localhost:8090/api/getTotalClicks')
+        if(countRes.ok){
+            const countResult = await countRes.json()
+            let totalCount = countResult.data.totalCount
+            totalClicks = totalCount
+        } else {
+            totalClicks = totalClicks
+        }
 }
 
 </script>

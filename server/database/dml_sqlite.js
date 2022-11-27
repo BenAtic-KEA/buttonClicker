@@ -43,3 +43,27 @@ export async function getTop10() {
         LIMIT 10;`)
     return result
 }
+
+async function getStoredClicks(username){
+    const result = await db.all(`
+    SELECT click_score from user
+    where username = ?`,[username]);
+
+    return result[0].click_score
+}
+
+export async function saveClicks(username, clickNumber){
+    const storedClicks = await getStoredClicks(username)
+    let clicksToSave = clickNumber + storedClicks
+    const result = await db.run(`
+    UPDATE user
+    SET click_score = ?
+    WHERE username = ?
+    `,[clicksToSave, username], function(err) {
+        if (err) {
+            return console.error(err.message)
+        }
+    })
+    return result
+
+}

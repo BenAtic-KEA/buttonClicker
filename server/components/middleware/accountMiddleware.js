@@ -55,3 +55,10 @@ export async function loginOk(req, res, next){
         res.status(400).send({data: {message: "Wrong account info"}})
     }
 }
+
+export function isLoggedIn(req, res, next){
+    if(req.session.authenticated){
+        next();
+    }else 
+    res.status(400).send({data: {message: "You have to be logged in"}})
+}

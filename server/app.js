@@ -29,16 +29,6 @@ app.use(express.static(path.resolve("../client/dist")));
 import cors from "cors";
 app.use(cors({ credentials: true, origin: true }));
 
-import { rateLimit } from 'express-rate-limit';
-
-
-const routeLimiter = rateLimit({
-    windowMs:10*60*1000,
-    max:80,
-    standardHeaders: true,
-    legacyHeaders: false,
-});
-
 import accountRouter from './routers/accountRouter.js'
 app.use(accountRouter);
 

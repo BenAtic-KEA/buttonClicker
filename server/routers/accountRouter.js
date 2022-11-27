@@ -29,6 +29,20 @@ router.post("/api/sign-up",signupGuard, async (req,res) => {
 })
 
 
+import { rateLimit } from 'express-rate-limit';
+
+
+const loginLimiter = rateLimit({
+    windowMs:2*60*1000,
+    max:3,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: (req,res) => {
+        res.send({data: {message: 'You only have 3 tries every 2 minutes.'}})    
+    }
+});
+
+router.use('/api/login',loginLimiter)
 router.post("/api/login", loginOk, (req,res) => {
     const {username} = req.body
 

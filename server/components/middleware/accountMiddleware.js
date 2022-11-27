@@ -60,6 +60,5 @@ export function isLoggedIn(req, res, next){
     if(req.session.authenticated){
         return next();
     } else 
-    console.log("Failed")
     res.status(400).send({data: {message: "You have to be logged in"}})
 }

@@ -12,7 +12,7 @@ let totalClicks = 0;
 
 // Fetch get stored clicks
 async function getTotalClicks(){
-    const countRes = await fetch('http://localhost:8090/api/getTotalClicks')
+    const countRes = await fetch('/api/getTotalClicks')
         if(countRes.ok){
             const countResult = await countRes.json()
             let totalCount = countResult.data.totalCount
@@ -28,7 +28,7 @@ getTotalClicks();
 async function saveClicks(){
     let clicks = personalCountValue
     //const response = fetch()
-    const res = await fetch('http://localhost:8090/api/saveClicks', {
+    const res = await fetch('/api/saveClicks', {
             method:'POST',
             headers:{
                 'Accept':'application/json',
@@ -48,7 +48,7 @@ async function saveClicks(){
             Command: toastr["warning"](`
                 ${json.data.message}`)
         }
-        const countRes = await fetch('http://localhost:8090/api/getTotalClicks')
+        const countRes = await fetch('/api/getTotalClicks')
         if(countRes.ok){
             const countResult = await countRes.json()
             let totalCount = countResult.data.totalCount

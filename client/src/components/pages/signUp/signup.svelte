@@ -26,7 +26,7 @@ let result
     // fetch post sign-up
     async function signUp(){
 
-        const res = await fetch('http://localhost:8090/api/sign-up', {
+        const res = await fetch('/api/sign-up', {
             method:'POST',
             headers:{
                 'Accept':'application/json',

@@ -28,7 +28,7 @@
     export let loggedIn;
     //TODO fetch post login
     async function login() {
-        const res = await fetch("http://localhost:8090/" + "api/login", {
+        const res = await fetch("/api/login", {
             method:'POST',
             headers:{
                 'Accept':'application/json',
@@ -56,7 +56,6 @@
                 result = JSON.stringify(json.data.message);
                 Command: toastr["warning"](result);
             }else{
-                console.log(res.status)
                 const json = await res.json();
                 result = JSON.stringify(json.data.message);
                 Command: toastr["warning"](result);
